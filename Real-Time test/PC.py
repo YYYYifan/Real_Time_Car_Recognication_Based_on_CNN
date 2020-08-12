@@ -33,7 +33,10 @@ while True:
         
         print("{}\t output: {}, time cost: {}".format(datetime.datetime.now(), label, round(time.time()-start, 2)))
         
-    if cv2.waitKey(25) & 0xFF == ord("q"):
+    # This also acts as
+    keyCode = cv2.waitKey(30) & 0xFF
+    # Stop the program on the ESC key
+    if keyCode == 27:
         torch.cuda.empty_cache()   
         cv2.destroyAllWindows()
         break

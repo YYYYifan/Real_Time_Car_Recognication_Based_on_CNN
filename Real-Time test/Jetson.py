@@ -66,6 +66,7 @@ while cv2.getWindowProperty("CSI Camera", 0) >= 0:
     keyCode = cv2.waitKey(30) & 0xFF
     # Stop the program on the ESC key
     if keyCode == 27:
+        torch.cuda.empty_cache()   
+        cv2.destroyAllWindows()
         break
-cap.release()
-cv2.destroyAllWindows()
+
