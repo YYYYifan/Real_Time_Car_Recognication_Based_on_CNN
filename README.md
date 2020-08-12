@@ -4,7 +4,7 @@
 
 ![Acc_and_Loss](./images/Loss_and_Accuracy_in_Training.png)
 ---
-## In [Verificaiton](./verificaiton.py)
+## [In Verificaiton](./verificaiton.py)
 
 Accuracy = 0.9746
 
