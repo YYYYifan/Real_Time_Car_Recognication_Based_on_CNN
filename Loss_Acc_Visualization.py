@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
 
 
-Epoch_size = 303
-batch = 4
+Epoch_size = 510
+batch = 12
 
 file_obj = open("./result/log.txt")
 buffer = file_obj.readlines()
@@ -48,5 +48,5 @@ def to_percent(temp, position):
 
 plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(to_percent))
 
-plt.savefig("./images/Loss and Accuracy in Training.png", dpi = 600)
+plt.savefig("./images/Loss_and_Accuracy_in_Training.png", dpi = 600)
 plt.show()
