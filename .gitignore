@@ -1,2 +1,6 @@
-spyproject/
+# Spyder project settings
+.spyderproject
+.spyproject
+
+
 data/*
