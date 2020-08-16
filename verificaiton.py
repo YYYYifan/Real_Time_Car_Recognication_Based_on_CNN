@@ -51,6 +51,7 @@ with torch.no_grad():
         correct += predicted.eq(labels).sum().item()
         print("idnex: {} Accuracy: {:.4f}".format(i, correct/total))
 
+end = datetime.datetime.now()
 torch.cuda.empty_cache()    
 
 end = datetime.datetime.now()    
