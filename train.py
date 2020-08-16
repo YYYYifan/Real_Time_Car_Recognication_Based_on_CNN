@@ -1,9 +1,8 @@
-from packages import prepare2
+from packages import prepare
 from packages import dataset
 from packages import models
 
 from torch.utils.data import DataLoader
-import numpy as np
 import torch
 import datetime
 
@@ -11,7 +10,7 @@ train_times = 40
 learnRate = 0.001
 batch_size = 12
 
-myImage = prepare2.imagePocess(save=True)
+myImage = prepare.imagePocess(save=True)
 
 with open("./data/dataset/configure") as file_obj:
     points = file_obj.readlines()
