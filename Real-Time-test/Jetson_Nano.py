@@ -9,9 +9,10 @@ import cv2
 
 print("==========Prepare==========")
 myCamera = camera.camera(grayscale=True)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 net = torch.load("./result/net.pkl")
-net = net.cuda()
+net = net.to(device)
 P_to_T = transforms.Compose([transforms.ToTensor()])
 
 
@@ -26,7 +27,7 @@ while cv2.getWindowProperty("CSI Camera", 0) >= 0:
 	    image = myCamera.take_a_pic()
 	    # myCamera.save_pic(image)
 	    image = P_to_T(image)
-	    image = image.cuda()
+	    image = image.to(device)
 	    image = image.unsqueeze(0)    
 
 	    outputs = net(image)
