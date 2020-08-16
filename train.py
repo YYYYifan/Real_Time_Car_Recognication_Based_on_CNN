@@ -13,11 +13,11 @@ batch_size = 12
 
 myImage = prepare2.imagePocess(save=True)
 
-
-
 with open("./data/dataset/configure") as file_obj:
     points = file_obj.readlines()
     points = points[0].split(" ")
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 train_dataset = dataset.Mydataset(myImage.train, int(points[0]))
 # verification_dataset = dataset.Mydataset(imagePocessed.verification_image)
@@ -27,7 +27,7 @@ train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True
 
 
 net = models.MobileNetV2(2)    
-net.cuda()
+net.to(device)
 
 
 optimizer = torch.optim.SGD(net.parameters(), lr=learnRate, momentum=0.9)
@@ -49,8 +49,8 @@ for time in range(train_times):
     correct = 0
     net.train(True)
     for i,(image,labels) in enumerate(train_dataloader):
-            image = image.cuda()
-            labels = labels.cuda()
+            image = image.to(device)
+            labels = labels.to(device)
             optimizer.zero_grad()
             # print("input shape",image.shape)
             outputs = net(image)
@@ -75,4 +75,4 @@ end = datetime.datetime.now()
 print("Train Time: {}".format(end-start))
 
 logFile.close()
-torch.save(net, './result/net.pkl')
+torch.save(net, './result/net_torch_{}.pkl'.format(torch.__version__))

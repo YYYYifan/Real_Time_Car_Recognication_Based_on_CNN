@@ -10,10 +10,10 @@ import datetime
 import time
 import numpy as np
 from PIL import ImageGrab
-
+ 
 BOX=(0,25,880,640)
 
-net = torch.load("../result/net.pkl")
+net = torch.load('../result/net_torch_{}.pkl'.format(torch.__version__))
 net.cuda()
 
 while True:    
