@@ -21,12 +21,14 @@ with open("./data/dataset/configure") as file_obj:
     points = file_obj.readlines()
     points = points[0].split(" ")
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 verification_images = np.load("./data/dataset/verification.npy", allow_pickle=True)
 verification_images = numpy_to_PIL(verification_images)
 
 print("Loading Net")
-net = torch.load("./result/net.pkl")
-net.cuda()
+net = torch.load("./result/net_torch_{}.pkl".format(torch.__version__))
+net.to(device)
 print("Finish")
 
 
@@ -41,8 +43,8 @@ correct = 0
 start = datetime.datetime.now()
 with torch.no_grad():
     for i,(image,labels) in enumerate(verification_dataloader):
-        image = image.cuda()
-        labels = labels.cuda()    
+        image = image.to(device)
+        labels = labels.to(device)
         outputs = net(image)
         _, predicted = outputs.max(1)
         total += outputs.size(0)

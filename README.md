@@ -7,8 +7,9 @@
 ---
 
 ## [In Verificaiton](./verificaiton.py)
-
-Accuracy = 0.9746
+Accuracy
+torch 1.6: 0.9746
+torch 1.4: 0.9616
 
 ---
 ## Real-Time Test

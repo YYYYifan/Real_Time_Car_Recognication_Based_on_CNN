@@ -13,15 +13,16 @@ from PIL import ImageGrab
  
 BOX=(0,25,880,640)
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 net = torch.load('../result/net_torch_{}.pkl'.format(torch.__version__))
-net.cuda()
+net.to(device)
 
 while True:    
     screen=np.array(ImageGrab.grab(bbox=BOX).convert("L"))
     cv2.imshow("window",screen)
     with torch.no_grad():    
         start = time.time()
-        screen = torch.from_numpy(screen).float().cuda()
+        screen = torch.from_numpy(screen).float().to(device)
         screen = screen.unsqueeze(0).unsqueeze(0)
         outputs = net(screen)
         _, predicted = outputs.max(1)
