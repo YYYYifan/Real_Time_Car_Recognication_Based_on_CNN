@@ -1,5 +1,7 @@
 # Real_Time_Car_Recognication_Based_on_CNN
- 
+
+it is used to classification BMW from other vehicles
+
 ## [Accuracy and Loss in training](./Loss_Acc_Visualization.py)
 
 ![Acc_and_Loss](./images/Loss_and_Accuracy_in_Training.png)
