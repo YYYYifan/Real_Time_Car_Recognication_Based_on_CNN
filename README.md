@@ -7,6 +7,9 @@ in PC has 2 way to test camera,
     1. Using PPT + OpenCV2, monitoring desktop.
     2. Based on "1", using DroidCamApp (WebCamera by using phone).
 
+----
+
+
 ## [Accuracy and Loss in training](./Loss_Acc_Visualization.py)
 
 ![Acc_and_Loss](./images/Loss_and_Accuracy_in_Training.png)
