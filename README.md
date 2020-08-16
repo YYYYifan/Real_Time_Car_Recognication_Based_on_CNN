@@ -10,7 +10,9 @@ it is used to classification BMW from other vehicles
 
 ## [In Verificaiton](./verificaiton.py)
 Accuracy
+
 torch 1.6: 0.9746
+
 torch 1.4: 0.9616
 
 ---
