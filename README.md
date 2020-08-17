@@ -19,7 +19,7 @@ Step2. **Extended** images by select different part of it.
 Step3. **Resize** all images to 512 x 512, this is for convorlution neural network (This step is in [dataset.py](./packages/dataset.py))
 
 
-> After step2, it has 3060 images for each subset ("positive", "negetive")
+> After step2, it has 3060 images for each train subset, 768 images for each verification subset ("positive", "negetive")
 
 ----
 
