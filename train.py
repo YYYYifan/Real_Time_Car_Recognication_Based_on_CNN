@@ -14,12 +14,12 @@ batch_size = 12
 
 with open("./parameter.json", 'r') as file_obj:
     parameter = json.load(file_obj)
-    len_each_subset_in_train = parameter["len_each_subset_in_train"]
-    parameter["batch_size"] = batch_size
+    len_each_subset_in_train = parameter["len_each_subset_in_train"]    
+
 
 myImage = prepare.imagePocess(save=True)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print("Device: {}".format(device))
 # Load datas to torchvision.dataset .
 train_dataset = dataset.Mydataset(myImage.train, len_each_subset_in_train)
 # Load dataset to torchvision.dataloder .
@@ -59,19 +59,18 @@ with open("./result/train.log", "w") as log_obj:
                 # print(outputs.shape,labels.shape)
                 loss = criterion(outputs, labels)
                 loss.backward()
-                optimizer.step()
-                # print(time, i, data_select, loss)
+                optimizer.step()                
                 _, predicted = outputs.max(1)
                 total += outputs.size(0)
-                # print(targets)
-                # print(predicted)
                 correct += predicted.eq(labels).sum().item()
                 Accuracy = correct/total
                 print("Epoch: {}/{}, idx:{} Loss:{:.4f} Accuracy:{:.4f}".format(time+1,epoch_size, index, loss,Accuracy))
                 logData = [time, index, loss.item(), Accuracy]
                 log_obj.write(str(logData))
                 log_obj.write("\n")
-        parameter["index_size"] = index
+                
+        parameter["index_size"] = index+1
+        parameter["batch_size"] = time
 
 # Release video memory (if it`s available).
 torch.cuda.empty_cache()
@@ -82,5 +81,5 @@ print("Train Time: {}".format(end-start))
 torch.save(net, './result/net_torch_{}.pkl'.format(torch.__version__))
 # save parameter.json
 with open('./parameter.json', 'w') as file_obj:
-    json.dump(parameter, file_obj)
+    json.dump(parameter, file_obj, sort_keys=True, indent=4, separators=(',', ':'))
 

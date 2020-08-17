@@ -11,7 +11,7 @@ with open("./parameter.json", 'r') as file_obj:
     index_size = parameter["index_size"]
     batch_size = parameter["batch_size"]
     
-with open("./result/log.txt") as file_obj:
+with open("./result/train.log") as file_obj:
     buffer = file_obj.readlines()
 
 for index in range(len(buffer)):
