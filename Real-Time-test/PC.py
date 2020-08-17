@@ -44,8 +44,7 @@ while True:
         print("{}\t output: {}, time cost: {}".format(
 			datetime.datetime.now(),
 			"Others" if predicted.item() == 0 else "BMW",
-			round(time.time()-start, 2)
-		))
+			round(time.time()-start, 2)))
         
     # Display, exit by "ESC"
     keyCode = cv2.waitKey(30) & 0xFF    
