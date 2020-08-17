@@ -11,14 +11,18 @@ in PC has 2 way to test camera,
 
 ## [Accuracy and Loss in training](./Loss_Acc_Visualization.py)
 
+[Log File](./result/train.log)
+
+
 ![Acc_and_Loss](./images/Loss_and_Accuracy_in_Training.png)
 
 ---
 
 ## [In Verificaiton](./verificaiton.py)
-Accuracy
 
-torch 1.6: 97.46%, each image needs 0.0006327 sec to classification in PC
+[Log File](./result/verification.log)
+
+torch 1.5: 97.46%, each image needs 0.0006327 sec to classification in PC
 
 torch 1.4: 96.16%
 
