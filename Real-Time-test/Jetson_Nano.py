@@ -6,13 +6,14 @@ import datetime
 import torchvision.transforms as transforms
 import cv2
 
-
 print("==========Prepare==========")
 myCamera = camera.camera(grayscale=True)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Load model
 net = torch.load("./result/net_torch_1.4.0.pkl")
 net = net.to(device)
+# Transfrom PIL images to tensor value
 P_to_T = transforms.Compose([transforms.ToTensor()])
 
 
