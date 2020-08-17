@@ -2,7 +2,7 @@
 
 it is used to classification BMW from other vehicles
 
-in PC has 2 way to test camera, 
+in PC has 2 way to test this:
     
     1. Using PPT + OpenCV2, monitoring desktop.
     2. Based on "1", using DroidCamApp (WebCamera by using phone).
@@ -40,7 +40,7 @@ It has 1536 images in verificaiton dataset, the half of them is BMW car image an
 
 [Log File](./result/verification.log)
 
-torch 1.5: 96.16%, each image needs 0.0006327 sec to classification in PC
+torch 1.5: 96.16%, each image needs 0.0006465 sec to classification in PC
 
 torch 1.4: 95.92%
 
