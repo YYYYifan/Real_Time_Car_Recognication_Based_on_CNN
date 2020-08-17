@@ -36,13 +36,15 @@ while cv2.getWindowProperty("CSI Camera", 0) >= 0:
 	    time_cost = end - start    
 
 	    result = "{}\t output: {}, time cost: {}".format(
-            datetime.datetime.now(),
-            "Others" if predicted.item() == 0 else "BMW",
-            round(time.time()-start, 2)
-        )
-		
-		print(result)
+			datetime.datetime.now(),
+			"Others" if predicted.item() == 0 else "BMW",
+			round(time.time()-start, 2)
+		)
 
+		# print(result)
+		
+        
+		
     # Display, exit by "ESC"
     keyCode = cv2.waitKey(30) & 0xFF    
     if keyCode == 27:
