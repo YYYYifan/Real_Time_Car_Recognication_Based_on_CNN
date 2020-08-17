@@ -3,14 +3,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
+import json
 
 
-Epoch_size = 510
-batch = 12
-
-file_obj = open("./result/log.txt")
-buffer = file_obj.readlines()
-file_obj.close()
+with open("./parameter.json", 'r') as file_obj:
+    parameter = json.load(file_obj)
+    index_size = parameter["index_size"]
+    batch_size = parameter["batch_size"]
+    
+with open("./result/log.txt") as file_obj:
+    buffer = file_obj.readlines()
 
 for index in range(len(buffer)):
     buffer[index] = buffer[index].replace("\n", "")
@@ -23,21 +25,21 @@ result_log = np.asarray(buffer).astype(float)
 
 loss = []
 for index in range(len(result_log)):
-    if index % Epoch_size == 0:        
-        loss.append(np.sum(result_log[index: index + Epoch_size, 2]) / Epoch_size)
+    if index % index_size == 0:        
+        loss.append(np.sum(result_log[index: index + index_size, 2]) / index_size)
 
 loss = np.asarray(loss)
 
 accuarcy = []
 for index in range(len(result_log)):
-    if index % Epoch_size == 0:        
-        accuarcy.append(np.sum(result_log[index: index + Epoch_size, 3]) / Epoch_size)
+    if index % index_size == 0:        
+        accuarcy.append(np.sum(result_log[index: index + index_size, 3]) / index_size)
 
 accuarcy = np.asarray(accuarcy)
 
 
 acc, = plt.plot(range(1, len(accuarcy)+1), accuarcy)
-loss, = plt.plot(range(1, len(loss)+1), loss/batch)
+loss, = plt.plot(range(1, len(loss)+1), loss/batch_size)
 plt.legend((acc, loss), ("Accuracy", "Loss"))
 plt.title("Loss and Accuaray in Training")
 plt.xlabel("Epoch")

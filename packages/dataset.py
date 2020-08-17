@@ -11,7 +11,7 @@ import torchvision.transforms as transforms
 
 class Mydataset(Dataset):
     
-    def __init__(self, images, split_point):        
+    def __init__(self, images, split_point: int):        
         self.data = images
         self.transform = transforms.Compose(
             [

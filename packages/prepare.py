@@ -4,6 +4,8 @@
 import PIL
 import random
 import numpy as np
+import json
+
 
 class imagePocess:
     
@@ -90,8 +92,17 @@ class imagePocess:
         self.train = train_positive + train_negetive
         self.verification = test_positive + test_negetive
         
-        with open("./data/dataset/configure", "w") as file_obj:
-            file_obj.write("{} {}".format(len(train_positive), len(test_positive)))
+        # with open("./data/dataset/configure", "w") as file_obj:
+            # file_obj.write("{} {}".format(len(train_positive), len(test_positive)))
+            
+        with open("./parameter.json", 'r') as file_obj:
+            parameter = json.load(file_obj)
+            
+        parameter["len_each_subset_in_train"] = len(train_positive)
+        parameter["len_each_subset_in_verification"] = len(test_positive)
+    
+        with open('./parameter.json', 'w') as file_obj:
+            json.dump(parameter, file_obj, sort_keys=True, indent=4, separators=(',', ':'))
             
         
             
