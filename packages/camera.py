@@ -27,10 +27,22 @@ def gstreamer_pipeline(
 
 class camera:
     def __init__(self, grayscale: bool=False):        
+        """
+        This woking with Pi camera.
+
+        Parameters
+        ----------
+        grayscale : bool, optional
+            This value decide whether tranform images to grayscale.
+            The default is False.
+
+        Returns
+        -------
+        None.
+
+        """
         self.grayscale = grayscale
-
         self.cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER)
-
         if self.cam.isOpened():
             print("Camera is ready")
 
@@ -42,7 +54,20 @@ class camera:
         return image
 
     
-    def save_pic(self, image):
+    def save_pic(self, image):    
+        """
+        save the images.
+
+        Parameters
+        ----------
+        image : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """        
         cv2.imwrite('./images/camera/{}.png'.format(datetime.datetime.now()), image)
         print("Finish")
         
