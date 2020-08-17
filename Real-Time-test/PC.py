@@ -41,12 +41,11 @@ while True:
         elif predicted.item() == 1:
             label = "BMW"
         
-        result = "{}\t output: {}, time cost: {}".format(
-            datetime.datetime.now(),
-            "Others" if predicted.item() == 0 else "BMW",
-            round(time.time()-start, 2)
-        )
-        print(result)
+        print("{}\t output: {}, time cost: {}".format(
+			datetime.datetime.now(),
+			"Others" if predicted.item() == 0 else "BMW",
+			round(time.time()-start, 2)
+		))
         
     # Display, exit by "ESC"
     keyCode = cv2.waitKey(30) & 0xFF    

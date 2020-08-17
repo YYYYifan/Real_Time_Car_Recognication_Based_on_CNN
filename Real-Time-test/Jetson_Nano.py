@@ -35,13 +35,11 @@ while cv2.getWindowProperty("CSI Camera", 0) >= 0:
 	    end = time.time()
 	    time_cost = end - start    
 
-	    result = "{}\t output: {}, time cost: {}".format(
+	    print("{}\t output: {}, time cost: {}".format(
 			datetime.datetime.now(),
 			"Others" if predicted.item() == 0 else "BMW",
 			round(time.time()-start, 2)
-		)
-
-		# print(result)
+		))
 		
         
 		
