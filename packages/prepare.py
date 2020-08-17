@@ -33,7 +33,7 @@ class imagePocess:
         if save:
             self.save()
             
-    def getPath(self, front_viwe_path = "./data/front_view.npy"):
+    def getPath(self, front_viwe_path: str= "./data/front_view.npy"):
         """
         
 

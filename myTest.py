@@ -16,3 +16,7 @@ with open('./parameter.json', 'w') as file_obj:
     
     
 myImage = prepare.imagePocess(save=False)    
+'''
+from packages import prepare
+help(prepare.imagePocess)
+'''

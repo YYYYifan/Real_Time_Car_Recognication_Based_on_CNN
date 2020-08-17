@@ -38,7 +38,7 @@ class Block(nn.Module):
 class MobileNetV2(nn.Module):
 
     cfg = [(1,  16, 1, 1),
-           (6,  24, 2, 2),  # NOTE: change stride 2 -> 1 for CIFAR10
+           (6,  24, 2, 2),  
            (6,  32, 3, 2),
            (6,  64, 4, 2),
            (6,  96, 3, 1),
@@ -46,8 +46,7 @@ class MobileNetV2(nn.Module):
            (6, 256, 1, 1)]
 
     def __init__(self, num_classes=2):
-        super(MobileNetV2, self).__init__()
-        # NOTE: change conv1 stride 2 -> 1 for CIFAR10
+        super(MobileNetV2, self).__init__()        
         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=2, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(32)
         self.layers = self._make_layers(in_planes=32)
@@ -69,8 +68,7 @@ class MobileNetV2(nn.Module):
     def forward(self, x):
         out = F.relu(self.bn1(self.conv1(x)))
         out = self.layers(out)
-        out = F.relu(self.bn2(self.conv2(out)))
-        # NOTE: change pooling kernel_size 7 -> 4 for CIFAR10
+        out = F.relu(self.bn2(self.conv2(out)))        
         out = self.pool(out)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
