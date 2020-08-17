@@ -46,7 +46,6 @@ while True:
             "Others" if predicted.item() == 0 else "BMW",
             round(time.time()-start, 2)
         )
-        
         print(result)
         
     # Display, exit by "ESC"

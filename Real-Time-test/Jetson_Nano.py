@@ -11,7 +11,7 @@ print("==========Prepare==========")
 myCamera = camera.camera(grayscale=True)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-net = torch.load("./result/net.pkl")
+net = torch.load("./result/net_torch_1.4.0.pkl")
 net = net.to(device)
 P_to_T = transforms.Compose([transforms.ToTensor()])
 
@@ -35,16 +35,15 @@ while cv2.getWindowProperty("CSI Camera", 0) >= 0:
 	    end = time.time()
 	    time_cost = end - start    
 
-	    if predicted[0].item() == 0:
-		    label = "others"
-	    else:
-		    label = "BMW"        
+	    result = "{}\t output: {}, time cost: {}".format(
+            datetime.datetime.now(),
+            "Others" if predicted.item() == 0 else "BMW",
+            round(time.time()-start, 2)
+        )
+		print(result)
 
-	    print("\n{}    OUTPUT: {}, Time Cose: {}\n".format(datetime.datetime.now(), label, round(time_cost, 2)))
-
-    # This also acts as
-    keyCode = cv2.waitKey(30) & 0xFF
-    # Stop the program on the ESC key
+    # Display, exit by "ESC"
+    keyCode = cv2.waitKey(30) & 0xFF    
     if keyCode == 27:
         torch.cuda.empty_cache()   
         cv2.destroyAllWindows()
