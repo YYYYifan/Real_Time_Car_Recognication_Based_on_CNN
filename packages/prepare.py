@@ -9,7 +9,21 @@ import json
 
 class imagePocess:
     
-    def __init__(self, save: bool=True):        
+    def __init__(self, save: bool=True):
+        """
+        
+
+        Parameters
+        ----------
+        save : bool, optional
+            The value is control when this class func finish whether save the result.
+            Tue default is True
+
+        Returns
+        -------
+        None.
+
+        """
                 
         self.positivePath, self.negetivePath = self.getPath()        
         
@@ -20,6 +34,23 @@ class imagePocess:
             self.save()
             
     def getPath(self, front_viwe_path = "./data/front_view.npy"):
+        """
+        
+
+        Parameters
+        ----------
+        front_viwe_path : TYPE, optional
+            The path of .npy file(dictionary type)
+            The default is "./data/front_view.npy".
+
+        Returns
+        -------
+        positivePath : TYPE
+            positive path list.
+        negetivePath : TYPE
+            negetive path list.
+
+        """
         front_viwe = np.load(front_viwe_path, allow_pickle=True).item()
         
         positivePath = front_viwe["81"]  # NOTE: "81" is BMW
@@ -38,6 +69,14 @@ class imagePocess:
     
     
     def get_picture_path(self):
+        """
+        Transfrom label path (.txt) to image path (.png)
+
+        Returns
+        -------
+        None.
+
+        """
         self.image_paths = self.positivePath + self.negetivePath
         
         for index in range(len(self.image_paths)):
@@ -45,6 +84,14 @@ class imagePocess:
     
     
     def rotate(self):
+        """
+        Rotate dataset
+
+        Returns
+        -------
+        None.
+
+        """
         self.images = []
         for image_path in self.image_paths:
             image = PIL.Image.open(image_path).convert("L")
@@ -65,6 +112,14 @@ class imagePocess:
             
             
     def split_images(self):
+        """
+        Split images to train, verification. 
+
+        Returns
+        -------
+        None.
+
+        """
         len_images = len(self.images)        
         split_point = int(len_images/2)
         print("len_images: {}, split: {}".format(len_images, split_point))
@@ -107,6 +162,15 @@ class imagePocess:
         
             
     def save(self):
+        """
+        Save result
+
+        Returns
+        -------
+        None.
+
+        """
+        
         # Train
         buff = []
         for image in self.train:

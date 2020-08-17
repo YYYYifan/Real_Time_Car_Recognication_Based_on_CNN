@@ -25,12 +25,15 @@ train_dataset = dataset.Mydataset(myImage.train, len_each_subset_in_train)
 # Load dataset to torchvision.dataloder .
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
+# Load Convorlotion Neural Network Models.
 net = models.MobileNetV2(2)    
 net.to(device)
 
+# Define optimizer and loss func.
 optimizer = torch.optim.SGD(net.parameters(), lr=learnRate, momentum=0.9)
 criterion = torch.nn.CrossEntropyLoss()
 
+# Adjust learning rate by each epoch
 def adjust_learning_rate(optimizer, epoch, lr):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     lr = lr * (0.1 ** (epoch // 30))
@@ -70,12 +73,14 @@ with open("./result/train.log", "w") as log_obj:
                 log_obj.write("\n")
         parameter["index_size"] = index
 
+# Release video memory (if it`s available).
 torch.cuda.empty_cache()
 end = datetime.datetime.now()      
 print("Train Time: {}".format(end-start))
 
+# save model
 torch.save(net, './result/net_torch_{}.pkl'.format(torch.__version__))
-
+# save parameter.json
 with open('./parameter.json', 'w') as file_obj:
     json.dump(parameter, file_obj)
 
