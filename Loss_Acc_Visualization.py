@@ -38,7 +38,7 @@ for index in range(len(result_log)):
 accuarcy = np.asarray(accuarcy)
 
 
-plt.figure(figsize=(6, 3.5))
+plt.figure(figsize=(6, 4))
 acc, = plt.plot(range(1, len(accuarcy)+1), accuarcy)
 loss, = plt.plot(range(1, len(loss)+1), loss/batch_size)
 plt.legend((acc, loss), ("Accuracy", "Loss"))
