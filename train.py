@@ -42,7 +42,7 @@ def adjust_learning_rate(optimizer, epoch, lr):
 
 
 print("Start Train")
-with open("./result/train.log", "w") as log_obj:
+with open("./result/train_torch_{}.log".format(torch.__version__), "w") as log_obj:
     start = datetime.datetime.now()    
     index_size = 0
     for time in range(epoch_size):

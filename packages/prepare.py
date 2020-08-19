@@ -98,7 +98,7 @@ class imagePocess:
             weight, height = image.size
             
             left_up = [0, 0, int(weight * 0.8), int(height * 0.8)]
-            left_down = [0, int(weight * 0.2),  int(weight * 0.8), height]
+            left_down = [0, int(height * 0.2),  int(weight * 0.8), height]
             right_up = [int(weight * 0.2), 0, weight, int(height * 0.8)]
             right_down = [int(weight * 0.2), int(height * 0.2), weight, height]
             center = [int(weight * 0.2), int(height * 0.2), int(weight * 0.8),int(height * 0.8)]

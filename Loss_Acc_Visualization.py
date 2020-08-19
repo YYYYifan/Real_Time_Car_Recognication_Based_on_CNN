@@ -38,6 +38,7 @@ for index in range(len(result_log)):
 accuarcy = np.asarray(accuarcy)
 
 
+plt.figure(figsize=(6, 3.5))
 acc, = plt.plot(range(1, len(accuarcy)+1), accuarcy)
 loss, = plt.plot(range(1, len(loss)+1), loss/batch_size)
 plt.legend((acc, loss), ("Accuracy", "Loss"))
@@ -50,5 +51,5 @@ def to_percent(temp, position):
 
 plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(to_percent))
 
-plt.savefig("./images/Loss_and_Accuracy_in_Training.png", dpi = 600)
+plt.savefig("./images/Loss_and_Accuracy_in_Training.png", dpi = 900, pad_inches=0.0)
 plt.show()
