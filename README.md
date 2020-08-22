@@ -1,5 +1,7 @@
 # Real_Time_Car_Recognication_Embedded_System_Based_on_Convolution_Neural_Network
 
+[jupyter notebook view](./test.ipynb)
+
 it is used to classification BMW from other vehicles
 
 in PC has 2 way to test this:
