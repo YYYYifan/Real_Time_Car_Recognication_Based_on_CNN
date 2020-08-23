@@ -1,6 +1,6 @@
 # Real_Time_Car_Recognication_Embedded_System_Based_on_Convolution_Neural_Network
 
-[jupyter notebook view](./test.ipynb)
+[jupyter notebook view](./CNN.ipynb)
 
 it is used to classification BMW from other vehicles
 

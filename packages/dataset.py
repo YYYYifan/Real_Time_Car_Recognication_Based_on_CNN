@@ -40,7 +40,12 @@ class Mydataset(Dataset):
         """
         Return dataset length
         """
-        return len(self.data)
+        length = 0
+        for key, values in self.data.items():
+            for value in values:
+                length = length + 1
+                
+        return length
 
 
     def __getitem__(self, index):
