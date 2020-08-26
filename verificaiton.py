@@ -49,7 +49,7 @@ total = 0
 correct = 0
 start = datetime.datetime.now()
 
-with open("./result/verification.log", "w") as file_obj:
+with open("./result/verification_torch_{}.log".format(torch.__version__), "w") as file_obj:
     with torch.no_grad():
         for i,(image,labels) in enumerate(verification_dataloader):
             image = image.to(device)
