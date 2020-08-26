@@ -144,8 +144,15 @@ class imagePocess:
             len(test_positive), len(test_negetive)
             ))
         
-        self.train = train_positive + train_negetive
-        self.verification = test_positive + test_negetive
+        self.train = {
+            "Positive": train_positive,
+            "Negetive": train_negetive
+            }
+        
+        self.verification = {
+            "Positive": test_positive,
+            "Negetive": test_negetive
+            }
         
         # with open("./data/dataset/configure", "w") as file_obj:
             # file_obj.write("{} {}".format(len(train_positive), len(test_positive)))
@@ -172,20 +179,25 @@ class imagePocess:
         """
         
         # Train
+        '''
         buff = []
         for image in self.train:
             buff.append(np.asarray(image))
+            
 
         np.save("./data/dataset/train.npy", buff)            
-        
+        '''
         # Verification
+        '''
         buff = []
         for image in self.verification:
             buff.append(np.asarray(image))
 
         np.save("./data/dataset/verification.npy", buff)     
+        '''
             
-            
+        np.save("./data/dataset/train.npy", self.train)            
+        np.save("./data/dataset/verification.npy", self.verification)            
             
 
             

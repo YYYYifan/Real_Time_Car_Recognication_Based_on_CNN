@@ -42,9 +42,9 @@ It has 1536 images in verificaiton dataset, the half of them is BMW car image an
 
 [Log File](./result/verification.log)
 
-torch 1.5: 96.16%, each image needs 0.006465 sec to classification in PC
+torch 1.5: 96.16%, each image needs 0.006465 sec -> 154 FPS
 
-torch 1.4: 95.92%
+torch 1.4: 96.03%, each image needs 0.006775 sec -> 147 FPS
 
 ---
 

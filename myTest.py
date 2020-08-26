@@ -4,6 +4,15 @@ import json
 from packages import prepare
 import PIL
 import numpy as np
+
+
+
+
+
+# myImage = prepare.imagePocess(save=True)
+
+
+test = np.load("./data/dataset/verification.npy", allow_pickle=True).item()
 '''
 with open("./parameter.json", 'r') as file_obj:
     parameter = json.load(file_obj)
@@ -51,7 +60,7 @@ images[3].save("{}{}.png".format(obj_folder, "5.left_down"))
 images[4].save("{}{}.png".format(obj_folder, "6.right_up"))
 images[5].save("{}{}.png".format(obj_folder, "7.right_down"))
 '''
-
+'''
 def man_dis(p1, p2):
     return np.sum(np.abs(p1 - p2))
 
@@ -70,4 +79,4 @@ for data in dataset:
     arr_dis.append(man_dis(sample, data))
 
 list.sort(arr_dis)
-    
+'''

@@ -40,11 +40,13 @@ class Mydataset(Dataset):
         """
         Return dataset length
         """
+        
         length = 0
         for key, values in self.data.items():
             for value in values:
                 length = length + 1
-                
+        
+                       
         return length
 
 
@@ -65,7 +67,14 @@ class Mydataset(Dataset):
             label of this image
 
         """
-        image = self.transform(self.data[index])        
-        label = 0 if index > self.split_point else 1 # 
+        label = 0 if index > self.split_point - 1 else 1
+                
+        if label == 1:
+            image = self.transform(self.data["Positive"][index])      
+        elif label == 0:
+            image = self.transform(self.data["Negetive"][index - self.split_point])      
+        
+        # image = self.transform(self.data[index])        
+        # label = 0 if index > self.split_point else 1 # 
     
         return image, label        

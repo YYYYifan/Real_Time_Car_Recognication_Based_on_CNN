@@ -28,9 +28,9 @@ with open("./parameter.json", 'r') as file_obj:
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load verification dataset.
-verification_images = np.load("./data/dataset/verification.npy", allow_pickle=True)
+verification_images = np.load("./data/dataset/verification.npy", allow_pickle=True).item()
 # Transfrom numpy type to PIL type
-verification_images = numpy_to_PIL(verification_images)
+# verification_images = numpy_to_PIL(verification_images)
 
 print("Loading Net")
 net = torch.load("./result/net_torch_{}.pkl".format(torch.__version__))
@@ -59,7 +59,7 @@ with open("./result/verification.log", "w") as file_obj:
             total += outputs.size(0)
             correct += predicted.eq(labels).sum().item()
             
-            log = "idnex: {}/{}".format(i+1, len_index)
+            log = "index: {}/{}".format(i+1, len_index)
             print(log)
             file_obj.write(log + "\n")
     
