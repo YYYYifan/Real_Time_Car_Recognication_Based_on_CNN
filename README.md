@@ -38,6 +38,8 @@ We use log in training to draw this images.
 
 ## [In Verification](./verificaiton.py)
 
+on PC
+
 It has 1536 images in verificaiton dataset, the half of them is BMW car image and leftover is others car images
 
 [torch 1.5](./result/verification_torch_1.5.1.log): 97.14%, each image needs 0.006701 sec -> 149 FPS
