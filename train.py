@@ -71,8 +71,8 @@ with open("./result/train_torch_{}.log".format(torch.__version__), "w") as log_o
             log_obj.write(str(logData))
             log_obj.write("\n")
 
-        parameter["index_size"] = index+1
-        parameter["batch_size"] = time
+        parameter["index_size"] = index + 1
+        parameter["batch_size"] = time + 1
 
 # Release video memory (if it`s available).
 torch.cuda.empty_cache()

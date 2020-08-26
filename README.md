@@ -36,13 +36,13 @@ We use log in training to draw this images.
 
 ---
 
-## [In Verificaiton](./verificaiton.py)
+## [In Verification](./verificaiton.py)
 
 It has 1536 images in verificaiton dataset, the half of them is BMW car image and leftover is others car images
 
 [Log File](./result/verification.log)
 
-torch 1.5: 96.16%, each image needs 0.0006465 sec to classification in PC
+torch 1.5: 96.16%, each image needs 0.006465 sec to classification in PC
 
 torch 1.4: 95.92%
 

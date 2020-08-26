@@ -29,6 +29,7 @@ for index in range(len(result_log)):
             np.sum(result_log[index: index + index_size, 2]) / index_size)
 
 loss = np.asarray(loss)
+loss2 = np.asarray(loss)
 
 accuarcy = []
 for index in range(len(result_log)):
