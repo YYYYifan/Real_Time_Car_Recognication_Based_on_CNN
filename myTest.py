@@ -1,82 +1,60 @@
-# -*- coding: utf-8 -*-
-
-import json
-from packages import prepare
+from torch.utils.data import DataLoader
+import torch
+import datetime
 import PIL
 import numpy as np
+import json
+from tqdm import tqdm
+from packages import dataset
 
 
-
-
-
-# myImage = prepare.imagePocess(save=True)
-
-
-test = np.load("./data/dataset/verification.npy", allow_pickle=True).item()
-'''
+# Load parameters
 with open("./parameter.json", 'r') as file_obj:
     parameter = json.load(file_obj)
+    len_each_subset_in_verification = parameter["len_each_subset_in_verification"]
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Load verification dataset.
+verification_images = np.load("./data/dataset/verification.npy", allow_pickle=True).item()
+# Transfrom numpy type to PIL type
+# verification_images = numpy_to_PIL(verification_images)
 
 
-parameter["TEST"] = "TEST"
+net = torch.load("./result/net_torch_{}.pkl".format(torch.__version__))
+net.to(device)
 
-with open('./parameter.json', 'w') as file_obj:    
-    json.dump(parameter, file_obj, sort_keys=True, indent=4, separators=(',', ':'))
-'''
+
+
+
+verification_dataset = dataset.Mydataset(verification_images, len_each_subset_in_verification)
+verification_dataloader = DataLoader(verification_dataset, batch_size=6, shuffle=True)
+
+
+
+len_index = int(verification_dataset.__len__() / 6)
+total = 0
+correct = 0
+start = datetime.datetime.now()
+
+#with open("./result/verification.log", "w") as file_obj:
+with torch.no_grad():
+    for i,(image,labels) in enumerate(tqdm(verification_dataloader, ncols=128, leave=True)):
+        image = image.to(device)
+        labels = labels.to(device)
+        outputs = net(image)
+        _, predicted = outputs.max(1)
+        total += outputs.size(0)
+        correct += predicted.eq(labels).sum().item()
+            
+            # log = "idnex: {}/{}".format(i+1, len_index)
+            # print(log)
+            # file_obj.write(log + "\n")
     
+    torch.cuda.empty_cache()   
+    cur_acc = correct / total
+    end = datetime.datetime.now()
+    total_time_cost = end - start
+    each_time_cost = total_time_cost / verification_dataset.__len__()
     
-# myImage = prepare.imagePocess(save=False)    
-'''
-from packages import prepare
-help(prepare.imagePocess)
-'''
-'''
-
-obj_folder = "C:\\Users\\duyif\\OneDrive\\Birmingham\\GraduationProject\\Figure\\Image Processing\\extend\\"
-
-images = []
-image = PIL.Image.open(r'D:\CompCars\data\image\81\92\2014\8d42b4ffe292f6.jpg')
-image.save("{}{}.png".format(obj_folder, "1.original"))
-image = image.convert("L")
-weight, height = image.size
-
-left_up = [0, 0, int(weight * 0.8), int(height * 0.8)]
-left_down = [0, int(height * 0.2),  int(weight * 0.8), height]
-right_up = [int(weight * 0.2), 0, weight, int(height * 0.8)]
-right_down = [int(weight * 0.2), int(height * 0.2), weight, height]
-center = [int(weight * 0.2), int(height * 0.2), int(weight * 0.8),int(height * 0.8)]
-
-images.append(image)
-images.append(image.crop(center))
-images.append(image.crop(left_up))
-images.append(image.crop(left_down))
-images.append(image.crop(right_up))
-images.append(image.crop(right_down))
-
-images[0].save("{}{}.png".format(obj_folder, "2.grayscale"))
-images[1].save("{}{}.png".format(obj_folder, "3.center"))
-images[2].save("{}{}.png".format(obj_folder, "4.left_up"))
-images[3].save("{}{}.png".format(obj_folder, "5.left_down"))
-images[4].save("{}{}.png".format(obj_folder, "6.right_up"))
-images[5].save("{}{}.png".format(obj_folder, "7.right_down"))
-'''
-'''
-def man_dis(p1, p2):
-    return np.sum(np.abs(p1 - p2))
-
-dataset = np.zeros([10, 157], dtype = float)
-sample = np.zeros([1, 157], dtype = float)
-sample[0, 0] = 15
-
-for i, data in enumerate(dataset):
-    data[0] = i + 1
-
-
-arr_dis = []
-
-
-for data in dataset:
-    arr_dis.append(man_dis(sample, data))
-
-list.sort(arr_dis)
-'''
+    tqdm.write(str(cur_acc))

@@ -1,5 +1,5 @@
 {
-    "batch_size":39,
+    "batch_size":40,
     "index_size":510,
     "len_each_subset_in_train":3060,
     "len_each_subset_in_verification":768
