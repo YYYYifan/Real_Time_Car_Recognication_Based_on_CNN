@@ -52,6 +52,9 @@ It has 1536 images in verificaiton dataset, the half of them is BMW car image an
 ### [In PC](./Real-Time-test/PC.py):
 ![PC_TEST_BMW](./images/PC_TEST_BMW.png)
 ![PC_TEST_Others](./images/PC_TEST_Others.png)
+
 ### [In Jetson_Nano](./Real-Time-test/Jetson_Nano.py):
-![indoor_test](./images/indoor_test.jpg)
-![indoor_test2](./images/indoor_test2.jpg)
+
+![indoor_test1](./images/Embedded_System_Real_Time_Test_Camera.jpg)
+![indoor_test2](./images/Embedded_System_Real_Time_Test_Phone.jpg)
+![indoor_test3](./images/Embedded_System_Real_Time_Test_Result.jpg)
