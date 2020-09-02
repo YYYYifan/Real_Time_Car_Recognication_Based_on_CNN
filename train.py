@@ -3,25 +3,31 @@ from packages import dataset
 from packages import models
 
 from torch.utils.data import DataLoader
+import numpy as np
 import torch
 import datetime
 import json
-
+import os
 
 epoch_size = 40
 learnRate = 0.001
-batch_size = 12
+batch_size = 6
 
 with open("./parameter.json", 'r') as file_obj:
     parameter = json.load(file_obj)
     len_each_subset_in_train = parameter["len_each_subset_in_train"]
 
+if not os.path.exists("./data/dataset/train.npy"):    
+    myImage = prepare.imagePocess(save=True)
+    train_dataset = myImage.train
+else:
+    train_dataset = np.load("./data/dataset/train.npy", allow_pickle=True).item()
 
-myImage = prepare.imagePocess(save=True)
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device: {}".format(device))
 # Load datas to torchvision.dataset .
-train_dataset = dataset.Mydataset(myImage.train, len_each_subset_in_train)
+train_dataset = dataset.Mydataset(train_dataset, len_each_subset_in_train)
 # Load dataset to torchvision.dataloder .
 train_dataloader = DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True)

@@ -2,10 +2,10 @@ import cv2
 import datetime
 
 def gstreamer_pipeline(
-        capture_width=1280,
-        capture_height=720,
-        display_width=1280,
-        display_height=720,
+        capture_width=800,
+        capture_height=600,
+        display_width=800,
+        display_height=600,
         framerate=60,
         flip_method=0,
         ):

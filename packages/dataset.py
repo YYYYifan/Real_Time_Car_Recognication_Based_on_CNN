@@ -29,7 +29,7 @@ class Mydataset(Dataset):
         self.data = images
         self.transform = transforms.Compose(
             [
-                transforms.Resize((512,512)),
+                transforms.Resize((800,600)),
                 transforms.ToTensor()                
             ]
         )

@@ -54,6 +54,5 @@ def to_percent(temp, position):
 
 plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(to_percent))
 
-plt.savefig("./images/Loss_and_Accuracy_in_Training.png",
-            dpi=900,  bbox_inches='tight')
+plt.savefig("./images/Loss_and_Accuracy_in_Training.png", dpi=900,  bbox_inches='tight')
 plt.show()

@@ -19,6 +19,7 @@ def numpy_to_PIL(images):
         buff.append(PIL.Image.fromarray(np.uint8(image)))
     return buff        
 
+batch_size = 12
 
 # Load parameters
 with open("./parameter.json", 'r') as file_obj:
@@ -40,35 +41,66 @@ print("Finish")
 
 print("Preparing images")
 verification_dataset = dataset.Mydataset(verification_images, len_each_subset_in_verification)
-verification_dataloader = DataLoader(verification_dataset, batch_size=6, shuffle=True)
+verification_dataloader = DataLoader(verification_dataset, batch_size=batch_size, shuffle=True)
 print("Finish")
 
 
-len_index = int(verification_dataset.__len__() / 6)
+len_index = int(verification_dataset.__len__() / batch_size)
 total = 0
 correct = 0
 start = datetime.datetime.now()
 
+
+confusion_martix = np.zeros([2,2], dtype = int)
 with open("./result/verification_torch_{}.log".format(torch.__version__), "w") as file_obj:
     with torch.no_grad():
         for i,(image,labels) in enumerate(verification_dataloader):
             image = image.to(device)
             labels = labels.to(device)
             outputs = net(image)
-            _, predicted = outputs.max(1)
-            total += outputs.size(0)
-            correct += predicted.eq(labels).sum().item()
-            
+            predicted = outputs.max(1).indices
+        
             log = "index: {}/{}".format(i+1, len_index)
             print(log)
-            file_obj.write(log + "\n")
+            
+            for index in range(batch_size):
+                if (labels[index] == predicted[index]).item():
+                    if predicted[index] == 1: confusion_martix[1, 1] = confusion_martix[1, 1] + 1
+                    if predicted[index] == 0: confusion_martix[0, 0] = confusion_martix[0, 0] + 1
+                else:
+                    if predicted[index] == 1: confusion_martix[1, 0] = confusion_martix[1, 0] + 1
+                    if predicted[index] == 0: confusion_martix[0, 1] = confusion_martix[0, 1] + 1
+            
+            log = "index: {}/{}\n".format(i+1, len_index)
+            print(log)
+            file_obj.write(log)
+            
+            
     
     torch.cuda.empty_cache()   
-    cur_acc = correct / total
+    
     end = datetime.datetime.now()
     total_time_cost = end - start
     each_time_cost = total_time_cost / verification_dataset.__len__()
     
-    log = "\nAccuracy:{:.4f}\nTotal time cost: {}\nEach image needs: {}".format(correct / total, total_time_cost, each_time_cost)
+    n_sample = np.sum(confusion_martix)
+    
+    #if feature_type == "SIFT" and distance_type == "Cosine" and k == 1:
+    #    print(confusion_martix)
+    Accuracy = (confusion_martix[1,1] + confusion_martix[0,0]) / n_sample
+    Precision = confusion_martix[1,1] / (confusion_martix[1,1] + confusion_martix[0,1])
+    if confusion_martix[1,1] == 0 or confusion_martix[1,0] == 0:
+        Recall = 0
+    else:
+        Recall = confusion_martix[1,1] / (confusion_martix[1,1] + confusion_martix[1,0])
+    if Recall == 0:
+        F1_Score = 0
+    else:                
+        F1_Score = 2 * Precision * Recall /  (Precision + Recall)
+    # print([Accuracy, Precision, Recall, F1_Score])        
+    
+    log = "\nAccuracy: {:.4f}\nPrecision: {:.4f}\nRecall: {:.4f}\nF1_Score: {:.4f}\nTotal time cost: {}\nEach image needs: {}".format(Accuracy, Precision, Recall, F1_Score, total_time_cost, each_time_cost)
     print(log)
     file_obj.write(log)
+    file_obj.write("\n" + str([Accuracy, Precision, Recall, F1_Score]))  
+    file_obj.write("\n" + str(confusion_martix))

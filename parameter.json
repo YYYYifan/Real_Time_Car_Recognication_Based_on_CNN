@@ -1,6 +1,6 @@
 {
     "batch_size":40,
-    "index_size":510,
+    "index_size":1020,
     "len_each_subset_in_train":3060,
     "len_each_subset_in_verification":768
 }
