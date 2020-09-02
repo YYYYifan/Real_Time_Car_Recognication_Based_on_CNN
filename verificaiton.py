@@ -65,11 +65,11 @@ with open("./result/verification_torch_{}.log".format(torch.__version__), "w") a
             
             for index in range(batch_size):
                 if (labels[index] == predicted[index]).item():
-                    if predicted[index] == 1: confusion_martix[1, 1] = confusion_martix[1, 1] + 1
-                    if predicted[index] == 0: confusion_martix[0, 0] = confusion_martix[0, 0] + 1
+                    if predicted[index] == 1: confusion_martix[1, 1] = confusion_martix[1, 1] + 1 # TN
+                    if predicted[index] == 0: confusion_martix[0, 0] = confusion_martix[0, 0] + 1 # TP
                 else:
-                    if predicted[index] == 1: confusion_martix[1, 0] = confusion_martix[1, 0] + 1
-                    if predicted[index] == 0: confusion_martix[0, 1] = confusion_martix[0, 1] + 1
+                    if predicted[index] == 1: confusion_martix[1, 0] = confusion_martix[1, 0] + 1 # FP
+                    if predicted[index] == 0: confusion_martix[0, 1] = confusion_martix[0, 1] + 1 # FN
             
             log = "index: {}/{}\n".format(i+1, len_index)
             print(log)
